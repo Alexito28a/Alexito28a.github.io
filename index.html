@@ -1,363 +1,155 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Sophia | 02.02</title>
+    <title>Para Sophia</title>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=La+Belle+Aurore&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --bg-dark: #050a14;
-            --blue-glow: #00f2ff;
-            --gold: #d4af37;
-            --paper: #fdfbf7;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
-            background-color: var(--bg-dark);
-            color: var(--paper);
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-            cursor: none; 
-        }
-
-        .universe-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at 50% 50%, #1a2a6c, #0b1021, #000000);
-            overflow: hidden;
-        }
-
-        .fog {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/img/fog1.png') repeat-x;
-            background-size: contain;
-            animation: fogAnim 60s linear infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes fogAnim { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
-
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0; left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-        .cursor-dot { width: 8px; height: 8px; background: var(--blue-glow); }
-        .cursor-outline { 
-            width: 40px; height: 40px; 
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: width 0.2s, height 0.2s;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: 6vw;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            background: linear-gradient(45deg, #fff, #aabfe0, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
-            opacity: 0;
-        }
-
-        .subtitle {
-            font-family: 'La Belle Aurore', cursive;
-            font-size: 2rem;
-            color: var(--gold);
-            margin-top: 20px;
-            opacity: 0;
-        }
-
-        .gallery-container {
-            position: relative;
-            min-height: 200vh;
-            padding: 100px 20px;
-        }
-
-        .polaroid {
-            position: absolute;
-            background: var(--paper);
-            padding: 15px 15px 60px 15px;
-            box-shadow: 10px 20px 40px rgba(0,0,0,0.6);
-            transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-            width: 280px;
-            z-index: 1;
-        }
-
-        .polaroid:hover {
-            z-index: 100 !important;
-            transform: scale(1.1) rotate(0deg) !important;
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.4);
-        }
-
-        .polaroid img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            filter: sepia(30%) contrast(110%);
-        }
-
-        .caption {
-            font-family: 'La Belle Aurore', cursive;
-            color: #222;
-            font-size: 1.5rem;
-            position: absolute;
-            bottom: 15px;
-            width: 100%;
-            text-align: center;
-            left: 0;
-        }
-
-        .sticker {
-            position: absolute;
-            pointer-events: none;
-            z-index: 2;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
-        }
-
-        .letter-section {
+            margin: 0;
+            padding: 0;
+            
+            background-color: #050510; 
+            
+            background: radial-gradient(circle at center top, #1a1f35 0%, #050510 100%);
+            color: #e0e6ed; 
+            font-family: 'Lato', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            padding: 50px;
         }
 
-        .sketchbook {
-            background: #fdfbf7;
+        
+        .wrapper {
+            max-width: 600px; 
+            width: 90%;
+            padding: 4rem 2rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        
+        .photo-frame {
             width: 100%;
-            max-width: 800px;
-            min-height: 600px;
+            height: auto;
+            margin-bottom: 3rem;
             position: relative;
-            padding: 60px;
-            box-shadow: 
-                inset 0 0 50px rgba(0,0,0,0.1),
-                0 20px 50px rgba(0,0,0,0.5);
-            transform: rotate(-1deg);
-            background-image: radial-gradient(#d3d3d3 1px, transparent 1px);
-            background-size: 30px 30px;
+            display: flex;
+            justify-content: center;
         }
 
-        .sketchbook::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: 0; width: 100%; height: 20px;
-            background: #fdfbf7;
-            clip-path: polygon(0% 100%, 5% 0%, 10% 100%, 15% 0%, 20% 100%, 25% 0%, 30% 100%, 35% 0%, 40% 100%, 45% 0%, 50% 100%, 55% 0%, 60% 100%, 65% 0%, 70% 100%, 75% 0%, 80% 100%, 85% 0%, 90% 100%, 95% 0%, 100% 100%);
+        .photo-frame img {
+            max-width: 100%;
+            border-radius: 4px; 
+           
+            box-shadow: 0 20px 50px rgba(86, 61, 220, 0.25); 
+            transition: transform 0.5s ease;
         }
 
-        .letter-text {
-            font-family: 'Montserrat', sans-serif;
-            color: #1a1a1a;
-            line-height: 1.8;
+        .photo-frame img:hover {
+            transform: scale(1.01); 
+        }
+
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .date {
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #7d8aff; 
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* --- LA CARTA --- */
+        .letter-content {
             font-size: 1.1rem;
+            line-height: 1.9; 
+            font-weight: 300;
+            text-align: justify; 
+            color: #cfd8e3;
         }
 
-        .letter-text h2 {
-            font-family: 'La Belle Aurore', cursive;
-            font-size: 3rem;
-            color: #1a2a6c;
-            margin-bottom: 30px;
+        .letter-content p {
+            margin-bottom: 1.5rem;
         }
 
-        .jelly-svg {
-            position: absolute;
-            width: 150px;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
-            color: var(--blue-glow);
+        .signature {
+            margin-top: 3rem;
+            text-align: right;
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #7d8aff;
         }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .wrapper { padding: 2rem 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
-    <div class="universe-bg">
-        <div class="fog"></div>
-        <div class="fog" style="animation-delay: -30s; opacity: 0.1;"></div>
-        <div id="stars-container"></div>
-    </div>
-
-    <section class="hero">
-        <h1 class="hero-title">Sophia</h1>
-        <div class="subtitle">02 . 02 . 2026</div>
-        <div style="margin-top: 50px; font-size: 2rem; animation: bounce 2s infinite;">:3</div>
-    </section>
-
-    <section class="gallery-container" id="collage">
+    <div class="wrapper">
         
-        <div class="polaroid" style="top: 5%; left: 10%; transform: rotate(-5deg);">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672099224162578/IMG-20260128-WA0012.jpg?ex=69813ba8&is=697fea28&hm=786182664f14158cdce6b07972f6c711c270059504ccc80882b9a3652bdbc758&" alt="Foto 1">
-            <div class="caption">Mi Princesa Bella :3</div>
-        </div>
-
-        <div class="polaroid" style="top: 15%; right: 10%; transform: rotate(8deg); width: 320px;">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672100318744667/IMG-20260119-WA0015.jpg?ex=69813ba8&is=697fea28&hm=b284785e02a739c056bd18642e8ccb898c06b9c8a69881e5a1aea7b39d9c0cab&" alt="Foto 2">
-            <div class="caption">Mi Vida</div>
-        </div>
-
-        <div class="polaroid" style="top: 35%; left: 15%; transform: rotate(3deg); z-index: 2;">
-            <div style="position: absolute; top: -15px; left: 40%; width: 50px; height: 100px; background: rgba(220,20,60,0.2); transform: rotate(-90deg);"></div>
-            <img src="https://media.discordapp.net/attachments/933078926190850078/1467672099941384455/IMG-20260122-WA0008.jpg?ex=69813ba8&is=697fea28&hm=78658a8357c29f6a1bb3d660aa2d415604088522152675fd70ef6daf115091f2&=&format=webp&width=305&height=542" alt="Foto 3">
-            <div class="caption">Mi Luz </div>
-        </div>
-
-        <div class="polaroid" style="top: 45%; right: 15%; transform: rotate(-6deg);">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672101124313304/IMG-20260119-WA0017.jpg?ex=69813ba8&is=697fea28&hm=c5a4ef480e5d85c6f7b28baf776e02a9a21a212c151f7c85ec9495909945ba7b&" alt="Foto 4">
-            <div class="caption">Mi Corazon</div>
-        </div>
-
-        <div class="polaroid" style="top: 65%; left: 8%; transform: rotate(-10deg); width: 250px;">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672099551182969/IMG-20260123-WA0026.jpg?ex=69813ba8&is=697fea28&hm=3829b46633a559d47c0cd54c8264632b42e1a21801b5f653604a794eb3fa5ad0&" alt="Foto 5">
-            <div class="caption">Mi Angel</div>
-        </div>
-
-        <div class="polaroid" style="top: 70%; right: 25%; transform: rotate(4deg);">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672100754948379/IMG-20260119-WA0016.jpg?ex=69813ba8&is=697fea28&hm=57f9661db9b6f0b1b9d616a673b1664d08618494f4c15b1a3d4d7e66a7933e52&" alt="Foto 6">
-            <div class="caption">Felices 22/2X 🎂</div>
-        </div>
-
-        <div class="polaroid" style="top: 85%; left: 40%; transform: rotate(0deg); z-index: 5;">
-            <img src="https://cdn.discordapp.com/attachments/933078926190850078/1467672101493149696/IMG-20260115-WA0021.jpg?ex=69813ba9&is=697fea29&hm=4581f0125898b972d2836c41810fb152f0e8ce9f59a107c1819ce45efce30338&" alt="Foto 7">
-            <div class="caption">Te amo</div>
-        </div>
-
-        <div class="sticker" style="top: 20%; left: 50%;">
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" class="jelly-svg">
-                <path d="M10,40 Q50,-20 90,40" stroke="#00f2ff" stroke-width="2" fill="rgba(0, 242, 255, 0.1)"/>
-                <path d="M20,40 Q20,80 15,90" stroke="#00f2ff" stroke-width="1"/>
-                <path d="M40,40 Q40,80 35,95" stroke="#00f2ff" stroke-width="1"/>
-                <path d="M60,40 Q60,80 65,95" stroke="#00f2ff" stroke-width="1"/>
-                <path d="M80,40 Q80,80 85,90" stroke="#00f2ff" stroke-width="1"/>
-            </svg>
-        </div>
         
-        <div class="sticker" style="top: 60%; left: 10%; font-size: 4rem;">🐋</div>
-        <div class="sticker" style="top: 10%; right: 20%; font-size: 3rem;">🦋</div>
-        <div class="sticker" style="top: 80%; left: 80%; font-size: 3rem;">✨</div>
+        <div class="photo-frame">
+            
+            <img src="https://media.discordapp.net/attachments/933078926190850078/1472295485321642014/4884694cacef7cdb99de59a8ec167b09.jpg?ex=69920d85&is=6990bc05&hm=08835facdeb2b6306ba119e42e9e472413b32d1996b4cd3968549ee1fe3e9cdd&=&format=webp&width=547&height=548" alt="Nosotros">
+        </div>
 
-    </section>
+        
+        <h1>Feliz San Valentin</h1>
+        <div class="date">:)</div>
 
-    <section class="letter-section">
-        <div class="sketchbook">
-            <div class="letter-text">
-                <h2>Hola Amor</h2>
+        
+        <div class="letter-content">
+            <p>
+                Feliz San Valentín, Sophia.
+            </p>
+            <p>
                 
-                <p>Bueno mi vida, primero que nada, ¡feliz cumpleaños! Ya 18 añitos, bienvenida oficialmente a la adultez. Sé que a veces da cosa pensar que el tiempo pasa y que lastimosamente crecemos todos, y bueno, así es la vida, pero ¿sabes qué es lo bueno de todo esto? Que voy a crecer contigo. Eso es lo único que me importa, que cada año que pase me veas ahí a tu lado, y espero estar así muchísimos años más, viéndote cumplir metas, hasta que nos toque morir juntitos de viejitos.</p>
-                <br>
-                <p>Te amo muchote, en serio. Y nada, me pongo a pensar y, a pesar de todo lo que estás pasando, y de las cosas que hice (que ya sabes...), seguimos juntos acá, firmes y felices. Eso me demuestra que podemos con todo. Pronto, mucho antes de lo que crees, vamos a tener esa vida juntos que tanto hablamos,  nuestra propia casa, nuestros hijos corriendo por ahí, el casamiento... todo. No pienso abandonarte nunca, quiero estar contigo toda la vida, incluso quedarme como esqueletito contigo ajsaj, ahí tirados juntos para siempre.</p>
-                <br>
-                <p>Pero bueno, espero que la pases súper bien hoy, te lo mereces. No sé si en tu teléfono vas a poder ver todo esto porque capaz se bugea o algo :,v, si no ni modo, tocará hacer capturas de pantalla para que lo leas, pero quería escribirte esto. Contigo para siempre. Feliz cumpleaños, mi vida.</p>
+                Te escribo esto porque, a pesar de todo lo que está pasando entre nosotros y de la distancia que a veces se siente, te sigo amando. Quizás más que antes. Mi deseo de tener un futuro contigo sigue intacto, y si tú también estás dispuesta a luchar por eso, quiero que sepas que yo no pienso rendirme.
+            </p>
+            <p>
                 
-
-                <div style="text-align: right; margin-top: 50px; font-family: 'La Belle Aurore'; font-size: 1.5rem;">
-                    Con mucho amor, tu futuro esposo.
-                </div>
+                No quiero abandonarte. Sé que a veces nos hacemos daño, y aunque hay momentos en los que me me siento lastimado, o etc, dejarte ir me resulta imposible, eres parte de mí. Te soy sincero, esperaba con ilusión que me dijeras feliz San Valentín también, ya que, al final del día, seguimos siendo pareja. Me dolió un poco el silencio, no te voy a mentir, pero supongo que lo que verdaderamente cuenta es que seguimos aquí, intentándolo.
+            </p>
+            <p>
                 
-                <div style="position: absolute; bottom: -20px; right: -40px; font-size: 3rem; transform: rotate(-45deg);">✏️</div>
+                Espero que no me odies y que, por favor, no te alejes de mí. Sé que tengo mis errores y lucho contra ellos porque no quiero ser así, quiero ser mejor para ti. Pero si algún día decides que tu camino ya no es conmigo, si decides irte... aunque me rompa el alma, lo voy a entender. Pero mientras tanto, aquí sigo, amándote.
+            </p>
+            
+            
+            <div class="signature">
+                — Denis
             </div>
         </div>
-    </section>
 
-    <script>
-        const starsContainer = document.getElementById('stars-container');
-        for(let i=0; i<150; i++){
-            const star = document.createElement('div');
-            star.style.position = 'absolute';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.background = 'white';
-            star.style.borderRadius = '50%';
-            star.style.opacity = Math.random();
-            star.style.animation = `twinkle ${Math.random()*3+2}s infinite`;
-            starsContainer.appendChild(star);
-        }
-        
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `@keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }`;
-        document.head.appendChild(styleSheet);
+    </div>
 
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.to(".hero-title", { duration: 2, opacity: 1, y: -20, ease: "power2.out" });
-        gsap.to(".subtitle", { duration: 2, delay: 0.5, opacity: 1, y: -10, ease: "power2.out" });
-
-        gsap.utils.toArray(".polaroid").forEach((photo, i) => {
-            gsap.to(photo, {
-                scrollTrigger: {
-                    trigger: photo,
-                    start: "top bottom",
-                    end: "top top",
-                    scrub: 1
-                },
-                y: (i + 1) * -30,
-                rotation: (Math.random() - 0.5) * 10, 
-                ease: "none"
-            });
-        });
-
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        document.querySelectorAll('a, .polaroid').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.width = '80px';
-                cursorOutline.style.height = '80px';
-                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.backgroundColor = 'transparent';
-            });
-        });
-
-    </script>
 </body>
 </html>
